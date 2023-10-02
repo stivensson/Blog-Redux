@@ -1,0 +1,27 @@
+.header {
+  height: 80px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header span {
+  font-size: 18px;
+}
+
+.header-sign {
+  margin-left: auto;
+}
+
+.header-button {
+  width: 110px;
+  height: 50px;
+}
+
+.sign-up {
+  border: 1px solid #68cb36;
+  border-radius: 5px;
+  color: #68cb36;
+  margin-left: 20px;
+}
