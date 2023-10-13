@@ -5,9 +5,19 @@ export const blogApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api' }),
   endpoints: (build) => ({
     getArticles: build.query({
-      query: () => 'articles?limit=5',
+      query: (countPages) => `articles?offset=${countPages}&limit=5`,
+    }),
+    getSingleArticle: build.query({
+      query: (slug) => `articles/${slug}`,
+    }),
+    getToken: build.mutation({
+      query: (body) => ({
+        url: 'users',
+        method: 'POST',
+        body,
+      }),
     }),
   }),
 })
 
-export const { useGetArticlesQuery } = blogApi
+export const { useGetArticlesQuery, useGetSingleArticleQuery, useGetTokenMutation } = blogApi

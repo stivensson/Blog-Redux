@@ -5,7 +5,7 @@
   justify-content: space-between;
   flex-wrap: nowrap;
   background-color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 20px;
 }
 
@@ -26,6 +26,11 @@
 .article-body-title {
   font-size: 20px;
   color: #2697ff;
+  cursor: pointer;
+}
+
+.article-link {
+  text-decoration: none;
 }
 
 .article-body {
@@ -56,4 +61,8 @@
 .article-user-wrapper {
   gap: 10px;
   padding: 0 10px;
+}
+
+.article-no-tags {
+  height: 32px;
 }

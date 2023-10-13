@@ -1,20 +1,18 @@
-// import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-// import { useGetArticlesQuery } from '../../service/blogApi'
+const initialState = {
+  pages: 1,
+}
 
-// const { data, isLoading, isError } = useGetArticlesQuery
+const articlesListSlice = createSlice({
+  name: 'articlesList',
+  initialState,
+  reducers: {
+    getPages(state, action) {
+      state.pages = action.payload
+    },
+  },
+})
 
-// const initialState = {
-//   articlesData: [],
-//   articlesIsLoading: null,
-//   articlesIsError: null,
-//   articlesCount: null,
-// }
-
-// const articlesListSlice = createSlice({
-//   name: 'articlesList',
-//   initialState,
-//   reducers: {},
-// })
-
-// export default articlesListSlice.reducer
+export default articlesListSlice.reducer
+export const { getPages } = articlesListSlice.actions

@@ -1,17 +1,22 @@
 import React from 'react'
-
-import './App.scss'
+import { Routes, Route } from 'react-router-dom'
 
 import Header from '../Header'
 import ArticlesList from '../ArticlesList'
-import PaginationPage from '../PaginationPage'
+import SingleArticle from '../../pages/SingleArticle'
+import CreateUser from '../../pages/CreateUser'
+
+import './App.module.scss'
 
 const App = () => {
   return (
     <>
       <Header />
-      <ArticlesList />
-      <PaginationPage />
+      <Routes>
+        <Route path="/articles" element={<ArticlesList />} />
+        <Route path="/articles/slug" element={<SingleArticle />} />
+        <Route path="/sign-up" element={<CreateUser />} />
+      </Routes>
     </>
   )
 }
