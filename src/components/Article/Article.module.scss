@@ -29,7 +29,7 @@
   cursor: pointer;
 }
 
-.article-link {
+a {
   text-decoration: none;
 }
 
@@ -65,4 +65,8 @@
 
 .article-no-tags {
   height: 32px;
+}
+
+.article-user-avatar {
+  width: 100px;
 }

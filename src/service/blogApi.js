@@ -10,14 +10,53 @@ export const blogApi = createApi({
     getSingleArticle: build.query({
       query: (slug) => `articles/${slug}`,
     }),
-    getToken: build.mutation({
+    signUp: build.mutation({
       query: (body) => ({
         url: 'users',
         method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body,
+      }),
+    }),
+    signIn: build.mutation({
+      query: (body) => ({
+        url: 'users/login',
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body,
+      }),
+    }),
+    getUser: build.query({
+      query: (token) => ({
+        url: 'user',
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    editProfile: build.mutation({
+      query: ({ body, token }) => ({
+        url: 'user',
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
         body,
       }),
     }),
   }),
 })
 
-export const { useGetArticlesQuery, useGetSingleArticleQuery, useGetTokenMutation } = blogApi
+export const {
+  useGetArticlesQuery,
+  useGetSingleArticleQuery,
+  useSignUpMutation,
+  useSignInMutation,
+  useGetUserQuery,
+  useEditProfileMutation,
+} = blogApi

@@ -25,9 +25,8 @@ const ArticlesList = () => {
         ) : isError ? (
           <Alert
             className={styles.error}
-            message="Внимание, ошибка соединения!"
-            description="- проверьте интернет соединение или перезагрузите страницу."
-            type="error"
+            message="Что-то пошло не так, перезагрузите страницу!"
+            type="warning"
             closable
           />
         ) : data.articles.length !== 0 ? (

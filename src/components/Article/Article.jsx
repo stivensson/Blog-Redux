@@ -6,7 +6,7 @@ import { HeartOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { format } from 'date-fns'
 
-import { shortDescription, shortTags, shortTitle } from '../../utils'
+import { shortDescription, shortTags, shortTitle, shortTagsText } from '../../utils'
 import { getSlug } from '../../store/reducers/articleSlice'
 
 import styles from './Article.module.scss'
@@ -18,7 +18,7 @@ const Article = ({ slug, title, likes, tags, description, user, avatar, date }) 
     <div className={styles.article}>
       <div className={styles['article-body']}>
         <div className={styles['article-body-wrapper']}>
-          <Link className={styles['article-link']} to="/articles/slug">
+          <Link to={`/articles/${slug}`}>
             <div className={styles['article-body-title']} onClick={() => dispatch(getSlug(slug))}>
               {shortTitle(title)}
             </div>
@@ -29,7 +29,7 @@ const Article = ({ slug, title, likes, tags, description, user, avatar, date }) 
         </div>
         <div className={styles['article-body-tags']}>
           {tags.length ? (
-            shortTags(tags).map((item) => <Button key={nanoid()}>{item}</Button>)
+            shortTags(tags).map((item) => <Button key={nanoid()}>{shortTagsText(item)}</Button>)
           ) : (
             <div className={styles['article-no-tags']} />
           )}

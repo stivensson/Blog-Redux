@@ -1,6 +1,6 @@
 .single-article {
   width: 900px;
-  height: 770px;
+  min-height: 770px;
   background-color: #fff;
   margin: 20px auto;
   padding: 20px;
@@ -71,4 +71,13 @@
 
 .single-article-text {
   margin-top: 40px;
+  overflow-wrap: break-word;
+}
+
+.error {
+  width: 360px;
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  margin-left: -180px;
 }

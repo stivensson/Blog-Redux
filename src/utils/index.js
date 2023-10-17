@@ -1,3 +1,3 @@
-import { shortDescription, shortTags, shortTitle } from './articleUtil'
+import { shortDescription, shortTags, shortTitle, shortTagsText } from './articleUtil'
 
-export { shortDescription, shortTags, shortTitle }
+export { shortDescription, shortTags, shortTitle, shortTagsText }

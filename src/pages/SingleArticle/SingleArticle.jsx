@@ -1,18 +1,18 @@
 import React from 'react'
-import { nanoid } from '@reduxjs/toolkit'
+import { useParams } from 'react-router-dom'
 import { HeartOutlined, LoadingOutlined } from '@ant-design/icons'
 import { Button, Spin, Alert } from 'antd'
 import { format } from 'date-fns'
-import { useSelector } from 'react-redux'
 import Markdown from 'markdown-to-jsx'
+import { nanoid } from '@reduxjs/toolkit'
 
-import { shortDescription, shortTags, shortTitle } from '../../utils'
+import { shortDescription, shortTags, shortTitle, shortTagsText } from '../../utils'
 import { useGetSingleArticleQuery } from '../../service/blogApi'
 
 import styles from './SingleArticle.module.scss'
 
 const SingleArticle = () => {
-  const { slug } = useSelector((state) => state.article)
+  const { slug } = useParams()
   const { data, isLoading, isError } = useGetSingleArticleQuery(slug)
 
   const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
@@ -24,9 +24,8 @@ const SingleArticle = () => {
       ) : isError ? (
         <Alert
           className={styles.error}
-          message="Внимание, ошибка соединения!"
-          description="- проверьте интернет соединение или перезагрузите страницу."
-          type="error"
+          message="Что-то пошло не так, перезагрузите страницу!"
+          type="warning"
           closable
         />
       ) : data.article ? (
@@ -41,7 +40,7 @@ const SingleArticle = () => {
               </div>
               <div className={styles['single-article-body-tags']}>
                 {data.article.tagList.length ? (
-                  shortTags(data.article.tagList).map((item) => <Button key={nanoid()}>{item}</Button>)
+                  shortTags(data.article.tagList).map((item) => <Button key={nanoid()}>{shortTagsText(item)}</Button>)
                 ) : (
                   <div className={styles['single-article-no-tags']} />
                 )}
