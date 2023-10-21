@@ -19,7 +19,7 @@ export const shortDescription = (text) => {
     )
   }
 
-  if (text.split(' ').length > 30) return text.split(' ').slice(0, 30).join(' ') + ' ...'
+  if (text.split(' ').length > 20) return text.split(' ').slice(0, 20).join(' ') + ' ...'
 
   return text
 }
@@ -33,6 +33,8 @@ export const shortTags = (tags) => {
 export const shortTagsText = (tagsText) => {
   if (tagsText.split(' ').length === 1 && tagsText.split('').length > 10)
     return tagsText.split('').slice(0, 10).join('') + ' ...'
+
+  if (tagsText.split(' ').length > 2) return tagsText.split(' ').slice(0, 2).join(' ') + ' ...'
 
   return tagsText
 }

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Alert } from 'antd'
+import { Alert, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
 import { useSignInMutation } from '../../service/blogApi'
 import { signInState } from '../../store/reducers/signInSlice'
@@ -12,7 +13,13 @@ import styles from './SignIn.module.scss'
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigation = useNavigate()
-  const [signIn, { data, isError, error }] = useSignInMutation()
+  const location = useLocation()
+
+  const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
+
+  const fromPage = location.state?.from?.pathname || '/articles'
+
+  const [signIn, { data, isError, error, isLoading }] = useSignInMutation()
 
   const {
     register,
@@ -29,13 +36,21 @@ const SignIn = () => {
     if (!data) return
     dispatch(signInState(data))
     localStorage.setItem('currentUser', data.user.token)
-    navigation('/articles')
+    navigation(fromPage, { replace: true })
   }, [data])
 
   return (
     <>
+      {isLoading && <Spin className={styles.spin} indicator={spinIcon} />}
       {isError && error.status === 422 ? (
         <Alert className={styles['alert-sign-in']} type="warning" message="Почта или пароль не верны!" closable />
+      ) : isError ? (
+        <Alert
+          className={styles['edit-profile-error']}
+          type="warning"
+          message="Что-то пошло не так, попробуйте снова!"
+          closable
+        />
       ) : null}
       <div className={styles['sign-in']}>
         <form className={styles['sign-in-form']} onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +114,10 @@ const SignIn = () => {
           <input className={styles['form-button']} type="submit" value="Login" />
           <span className={styles['form-sign-up']}>
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            Don't have an account? <span>Sign Up.</span>
+            Don't have an account?
+            <Link to="/sign-up">
+              <span>Sign Up.</span>
+            </Link>
           </span>
         </form>
       </div>

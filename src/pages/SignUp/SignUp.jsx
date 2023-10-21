@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { Alert } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import { Alert, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
 import { useSignUpMutation } from '../../service/blogApi'
 
 import styles from './SignUp.module.scss'
 
 const SignUp = () => {
-  const [signUp, { data, isError, error }] = useSignUpMutation()
-
   const navigation = useNavigate()
+
+  const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
+
+  const [signUp, { data, isError, error, isLoading }] = useSignUpMutation()
 
   const {
     register,
@@ -36,6 +39,7 @@ const SignUp = () => {
 
   return (
     <>
+      {isLoading && <Spin className={styles.spin} indicator={spinIcon} />}
       {isError && error.data.errors.username ? (
         <Alert
           className={styles['alert-user']}
@@ -43,8 +47,7 @@ const SignUp = () => {
           message="Пользователь с таким именем уже существует!"
           closable
         />
-      ) : null}
-      {isError && error.data.errors.email ? (
+      ) : isError && error.data.errors.email ? (
         <Alert
           className={styles['alert-email']}
           type="warning"
@@ -170,7 +173,10 @@ const SignUp = () => {
           </div>
           <input className={styles['form-button']} type="submit" value="Create" />
           <span className={styles['form-sign-in']}>
-            Already have an account? <span>Sign In.</span>
+            Already have an account?
+            <Link to="/sign-in">
+              <span>Sign In.</span>
+            </Link>
           </span>
         </form>
       </div>

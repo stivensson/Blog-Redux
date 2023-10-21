@@ -38,7 +38,9 @@ const Header = () => {
         </div>
       ) : (
         <div className={styles['header-sign']}>
-          <Button className={styles['create-article']}>Create article</Button>
+          <Link to="/new-article">
+            <Button className={styles['create-article']}>Create article</Button>
+          </Link>
           <Link to="/profile">
             <span className={styles['username']} type="text">
               {username}

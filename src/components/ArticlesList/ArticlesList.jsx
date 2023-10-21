@@ -12,8 +12,9 @@ import styles from './ArticlesList.module.scss'
 const ArticlesList = () => {
   const dispatch = useDispatch()
   const { pages } = useSelector((state) => state.articlesList)
+  const token = localStorage.getItem('currentUser')
   const countPages = (pages - 1) * 5
-  const { data, isLoading, isError } = useGetArticlesQuery(countPages)
+  const { data, isLoading, isError } = useGetArticlesQuery({ countPages, token })
 
   const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
 
@@ -35,6 +36,7 @@ const ArticlesList = () => {
               key={item.slug}
               slug={item.slug}
               title={item.title}
+              favorited={item.favorited}
               likes={item.favoritesCount}
               tags={item.tagList}
               description={item.description}

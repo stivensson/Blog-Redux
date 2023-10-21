@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.single-article-body-favorited {
+  cursor: pointer;
+}
+
 .single-article-body-title {
   font-size: 20px;
   color: #2697ff;
@@ -44,6 +48,8 @@
   font-size: 12px;
   overflow-wrap: break-word;
   line-height: 20px;
+  min-height: 40px;
+  width: 600px;
 }
 
 .single-article-user-username {
@@ -66,7 +72,8 @@
 }
 
 .single-article-user-avatar {
-  width: 100px;
+  width: 50px;
+  height: 50px;
 }
 
 .single-article-text {
@@ -80,4 +87,31 @@
   top: 90px;
   left: 50%;
   margin-left: -180px;
+}
+
+.single-article-description-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.delete-article-button,
+.edit-article-button {
+  height: 35px;
+  width: 75px;
+}
+
+.delete-article-button {
+  margin: 0 10px 0 auto;
+}
+
+.edit-article-button {
+  border: 1px solid rgba(82, 196, 26, 1);
+  color: rgba(82, 196, 26, 1);
+}
+
+.spin {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 40%;
 }

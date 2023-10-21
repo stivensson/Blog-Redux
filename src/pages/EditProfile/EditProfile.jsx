@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { Alert } from 'antd'
+import { Alert, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
 import { useEditProfileMutation } from '../../service/blogApi'
 import { signInState } from '../../store/reducers/signInSlice'
@@ -13,6 +14,8 @@ const EditProfile = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('currentUser')
 
+  const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
+
   const {
     register,
     formState: { errors },
@@ -21,7 +24,7 @@ const EditProfile = () => {
     mode: 'onchange',
   })
 
-  const [editProfile, { data, isError }] = useEditProfileMutation()
+  const [editProfile, { data, isError, isLoading }] = useEditProfileMutation()
 
   const onSubmit = (user) => {
     const body = JSON.stringify({ user })
@@ -32,10 +35,11 @@ const EditProfile = () => {
     if (!data) return
     dispatch(signInState(data))
     localStorage.setItem('currentUser', data.user.token)
-  })
+  }, [data])
 
   return (
     <>
+      {isLoading && <Spin className={styles.spin} indicator={spinIcon} />}
       {isError && (
         <Alert
           className={styles['edit-profile-error']}
@@ -71,9 +75,7 @@ const EditProfile = () => {
                 })}
               />
               {errors.username && (
-                <span style={{ color: 'red', fontSize: 12, top: 290, position: 'absolute' }}>
-                  {errors.username.message}
-                </span>
+                <span style={{ color: 'red', fontSize: 12, position: 'absolute' }}>{errors.username.message}</span>
               )}
             </label>
             <label className={styles['form-email']}>
@@ -99,9 +101,7 @@ const EditProfile = () => {
                 })}
               />
               {errors.email && (
-                <span style={{ color: 'red', fontSize: 12, top: 369, position: 'absolute' }}>
-                  {errors.email.message}
-                </span>
+                <span style={{ color: 'red', fontSize: 12, position: 'absolute' }}>{errors.email.message}</span>
               )}
             </label>
             <label className={styles['form-password']}>
@@ -126,9 +126,7 @@ const EditProfile = () => {
                 })}
               />
               {errors.password && (
-                <span style={{ color: 'red', fontSize: 12, top: 446, position: 'absolute' }}>
-                  {errors.password.message}
-                </span>
+                <span style={{ color: 'red', fontSize: 12, position: 'absolute' }}>{errors.password.message}</span>
               )}
             </label>
             <label className={styles['form-image']}>
@@ -143,6 +141,9 @@ const EditProfile = () => {
                   },
                 })}
               />
+              {errors.image && (
+                <span style={{ color: 'red', fontSize: 12, position: 'absolute' }}>{errors.image.message}</span>
+              )}
             </label>
           </div>
           <input className={styles['form-button']} type="submit" value="Save" />

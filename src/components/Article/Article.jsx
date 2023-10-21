@@ -1,35 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { nanoid } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-import { HeartOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { format } from 'date-fns'
 
 import { shortDescription, shortTags, shortTitle, shortTagsText } from '../../utils'
-import { getSlug } from '../../store/reducers/articleSlice'
 
 import styles from './Article.module.scss'
 
-const Article = ({ slug, title, likes, tags, description, user, avatar, date }) => {
-  const dispatch = useDispatch()
-
+const Article = ({ slug, title, likes, tags, description, user, avatar, date, favorited }) => {
   return (
     <div className={styles.article}>
       <div className={styles['article-body']}>
         <div className={styles['article-body-wrapper']}>
           <Link to={`/articles/${slug}`}>
-            <div className={styles['article-body-title']} onClick={() => dispatch(getSlug(slug))}>
-              {shortTitle(title)}
-            </div>
+            <div className={styles['article-body-title']}>{shortTitle(title)}</div>
           </Link>
           <div className={styles['article-body-likes']}>
-            {<HeartOutlined />} {likes}
+            {favorited ? '❤️️' : '🤍'} {likes}
           </div>
         </div>
         <div className={styles['article-body-tags']}>
           {tags.length ? (
-            shortTags(tags).map((item) => <Button key={nanoid()}>{shortTagsText(item)}</Button>)
+            shortTags(tags).map((item) => item && <Button key={nanoid()}>{shortTagsText(item)}</Button>)
           ) : (
             <div className={styles['article-no-tags']} />
           )}

@@ -8,16 +8,18 @@ import ArticlesList from '../ArticlesList'
 import SingleArticle from '../../pages/SingleArticle'
 import SignUp from '../../pages/SignUp'
 import SignIn from '../../pages/SignIn'
-import EditProfile from '../../pages/EditProfile/'
+import EditProfile from '../../pages/EditProfile'
+import NewArticle from '../../pages/NewArticle'
+import NotFoundPage from '../../pages/NotFoundPage'
+import RequireAuthorization from '../../hoc'
 import { useGetUserQuery } from '../../service/blogApi'
 import { signInState } from '../../store/reducers/signInSlice'
-import { nowOffLine, nowOnLine } from '../../store/reducers/appSlice'
 
 import styles from './App.module.scss'
 
 const App = () => {
   const { username } = useSelector((state) => state.signIn)
-  const { onLine } = useSelector((state) => state.app)
+  const [onLine, setOnLine] = useState(true)
   const [skip, setSkip] = useState(true)
   const dispatch = useDispatch()
 
@@ -42,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
     const isOnLine = () => {
-      navigator.onLine ? dispatch(nowOnLine()) : dispatch(nowOffLine())
+      navigator.onLine ? setOnLine(true) : setOnLine(false)
     }
 
     window.addEventListener('online', isOnLine)
@@ -78,7 +80,24 @@ const App = () => {
         <Route path="/articles/:slug" element={<SingleArticle />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/profile" element={<EditProfile />} />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuthorization>
+              <EditProfile />
+            </RequireAuthorization>
+          }
+        />
+        <Route
+          path="/new-article"
+          element={
+            <RequireAuthorization>
+              <NewArticle />
+            </RequireAuthorization>
+          }
+        />
+        <Route path="/articles/:slug/edit" element={<NewArticle />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   )
