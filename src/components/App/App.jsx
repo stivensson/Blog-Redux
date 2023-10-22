@@ -76,7 +76,7 @@ const App = () => {
       ) : null}
       <Header />
       <Routes>
-        <Route path="/" element={<ArticlesList />} />
+        <Route path="/articles" element={<ArticlesList />} />
         <Route path="/articles/:slug" element={<SingleArticle />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
