@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Blog-Redux/static/css/main.ca05590d.css",
-    "main.js": "/Blog-Redux/static/js/main.4fcdecc6.js",
+    "main.js": "/Blog-Redux/static/js/main.d6d3ea3e.js",
     "index.html": "/Blog-Redux/index.html",
     "main.ca05590d.css.map": "/Blog-Redux/static/css/main.ca05590d.css.map",
-    "main.4fcdecc6.js.map": "/Blog-Redux/static/js/main.4fcdecc6.js.map"
+    "main.d6d3ea3e.js.map": "/Blog-Redux/static/js/main.d6d3ea3e.js.map"
   },
   "entrypoints": [
     "static/css/main.ca05590d.css",
-    "static/js/main.4fcdecc6.js"
+    "static/js/main.d6d3ea3e.js"
   ]
 }
