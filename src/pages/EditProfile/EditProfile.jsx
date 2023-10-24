@@ -13,7 +13,6 @@ const EditProfile = () => {
   const { username, email, image } = useSelector((state) => state.signIn)
   const dispatch = useDispatch()
   const token = localStorage.getItem('currentUser')
-
   const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
 
   const {

@@ -14,6 +14,7 @@ import {
   useFavoritesMutation,
   useGetSingleArticleQuery,
 } from '../../service/blogApi'
+import { ARTICLES, SIGN_IN } from '../../routes'
 
 import styles from './SingleArticle.module.scss'
 
@@ -56,7 +57,7 @@ const SingleArticle = () => {
 
   useEffect(() => {
     if (!isSuccess) return
-    navigation('/articles')
+    navigation(ARTICLES)
   }, [isSuccess])
 
   const favoriting = () => {
@@ -70,7 +71,7 @@ const SingleArticle = () => {
   }
 
   if (redirect) {
-    return <Navigate to="/sign-in" state={{ from: location }} />
+    return <Navigate to={SIGN_IN} state={{ from: location }} />
   }
 
   return (
@@ -132,7 +133,7 @@ const SingleArticle = () => {
                     Delete
                   </Button>
                 </Popconfirm>
-                <Link to={`/articles/${slug}/edit`}>
+                <Link to={`${ARTICLES}/${slug}/edit`}>
                   <Button className={styles['edit-article-button']}>Edit</Button>
                 </Link>
               </>

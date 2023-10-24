@@ -6,6 +6,7 @@ import { Button, Alert, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
 import { useEditArticleMutation, useGetSingleArticleQuery, useNewArticleMutation } from '../../service/blogApi'
+import { ARTICLES } from '../../routes'
 
 import styles from './NewArticle.module.scss'
 
@@ -75,12 +76,12 @@ const NewArticle = () => {
 
   useEffect(() => {
     if (!res) return
-    navigation(`/articles/${res.article.slug}`)
+    navigation(`${ARTICLES}/${res.article.slug}`)
   }, [res])
 
   useEffect(() => {
     if (!data) return
-    navigation(`/articles/${data.article.slug}`)
+    navigation(`${ARTICLES}/${data.article.slug}`)
   }, [data])
 
   return (

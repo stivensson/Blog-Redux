@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Spin, Pagination } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
-import { useGetArticlesQuery } from '../../service/blogApi'
 import Article from '../Article'
+import { useDeleteFavoritesMutation, useFavoritesMutation, useGetArticlesQuery } from '../../service/blogApi'
 import { getPages } from '../../store/reducers/articlesListSlice'
 
 import styles from './ArticlesList.module.scss'
@@ -12,18 +12,33 @@ import styles from './ArticlesList.module.scss'
 const ArticlesList = () => {
   const dispatch = useDispatch()
   const { pages } = useSelector((state) => state.articlesList)
+  const { isLogin } = useSelector((state) => state.signIn)
   const token = localStorage.getItem('currentUser')
   const countPages = (pages - 1) * 5
+  const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
+
   const { data, isLoading, isError } = useGetArticlesQuery({ countPages, token })
 
-  const spinIcon = <LoadingOutlined style={{ fontSize: 100 }} spin />
+  const [deleteFavorite, { nowError, nowLoading }] = useDeleteFavoritesMutation({
+    selectFromResult: ({ isError, isLoading }) => ({
+      nowError: isError,
+      nowLoading: isLoading,
+    }),
+  })
+
+  const [favorites, { isErr, isLoad }] = useFavoritesMutation({
+    selectFromResult: ({ isError, isLoading }) => ({
+      isErr: isError,
+      isLoad: isLoading,
+    }),
+  })
 
   return (
     <>
       <div className={styles['articles-list']}>
-        {isLoading ? (
+        {isLoading || nowLoading || isLoad ? (
           <Spin className={styles.spin} indicator={spinIcon} />
-        ) : isError ? (
+        ) : isError || nowError || isErr ? (
           <Alert
             className={styles.error}
             message="Что-то пошло не так, перезагрузите страницу!"
@@ -43,6 +58,10 @@ const ArticlesList = () => {
               user={item.author.username}
               avatar={item.author.image}
               date={item.createdAt}
+              isLogin={isLogin}
+              token={token}
+              deleteFavorite={deleteFavorite}
+              favorites={favorites}
             />
           ))
         ) : null}

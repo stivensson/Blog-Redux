@@ -14,6 +14,16 @@ import NotFoundPage from '../../pages/NotFoundPage'
 import RequireAuthorization from '../../hoc'
 import { useGetUserQuery } from '../../service/blogApi'
 import { signInState } from '../../store/reducers/signInSlice'
+import {
+  ARTICLES,
+  ARTICLES_SLUG,
+  ARTICLES_SLUG_EDIT,
+  NEW_ARTICLE,
+  NOT_FOUND,
+  PROFILE,
+  SIGN_IN,
+  SIGN_UP,
+} from '../../routes'
 
 import styles from './App.module.scss'
 
@@ -22,7 +32,6 @@ const App = () => {
   const [onLine, setOnLine] = useState(true)
   const [skip, setSkip] = useState(true)
   const dispatch = useDispatch()
-
   const token = localStorage.getItem('currentUser')
 
   useEffect(() => {
@@ -76,12 +85,12 @@ const App = () => {
       ) : null}
       <Header />
       <Routes>
-        <Route path="/articles" element={<ArticlesList />} />
-        <Route path="/articles/:slug" element={<SingleArticle />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path={ARTICLES} element={<ArticlesList />} />
+        <Route path={ARTICLES_SLUG} element={<SingleArticle />} />
+        <Route path={SIGN_UP} element={<SignUp />} />
+        <Route path={SIGN_IN} element={<SignIn />} />
         <Route
-          path="/profile"
+          path={PROFILE}
           element={
             <RequireAuthorization>
               <EditProfile />
@@ -89,15 +98,15 @@ const App = () => {
           }
         />
         <Route
-          path="/new-article"
+          path={NEW_ARTICLE}
           element={
             <RequireAuthorization>
               <NewArticle />
             </RequireAuthorization>
           }
         />
-        <Route path="/articles/:slug/edit" element={<NewArticle />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={ARTICLES_SLUG_EDIT} element={<NewArticle />} />
+        <Route path={NOT_FOUND} element={<NotFoundPage />} />
       </Routes>
     </>
   )

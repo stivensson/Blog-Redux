@@ -7,6 +7,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 
 import { useSignInMutation } from '../../service/blogApi'
 import { signInState } from '../../store/reducers/signInSlice'
+import { SIGN_UP } from '../../routes'
 
 import styles from './SignIn.module.scss'
 
@@ -115,7 +116,7 @@ const SignIn = () => {
           <span className={styles['form-sign-up']}>
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Don't have an account?
-            <Link to="/sign-up">
+            <Link to={SIGN_UP}>
               <span>Sign Up.</span>
             </Link>
           </span>

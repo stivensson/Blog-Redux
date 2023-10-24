@@ -5,6 +5,7 @@ import { Alert, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
 import { useSignUpMutation } from '../../service/blogApi'
+import { SIGN_IN } from '../../routes'
 
 import styles from './SignUp.module.scss'
 
@@ -34,7 +35,7 @@ const SignUp = () => {
   useEffect(() => {
     if (!data) return
     localStorage.setItem('blogPlatforma', data.user.token)
-    navigation('/sign-in')
+    navigation(SIGN_IN)
   }, [data])
 
   return (
@@ -174,7 +175,7 @@ const SignUp = () => {
           <input className={styles['form-button']} type="submit" value="Create" />
           <span className={styles['form-sign-in']}>
             Already have an account?
-            <Link to="/sign-in">
+            <Link to={SIGN_IN}>
               <span>Sign In.</span>
             </Link>
           </span>
