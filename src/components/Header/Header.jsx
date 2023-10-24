@@ -23,7 +23,7 @@ const Header = () => {
   }
 
   const imgE = new Image()
-  imgE.src = image
+  if (image) imgE.src = image
   imgE.onload = function () {
     setImgErr(false)
   }
